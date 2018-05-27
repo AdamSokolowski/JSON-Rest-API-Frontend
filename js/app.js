@@ -22,6 +22,18 @@ $(document).ready(function(){
             +bookDetails.publisher +", type "+bookDetails.type);
         })
     })
+
+    
+    rootDiv.on('click','.delete-button', function(event) {
+        event.stopPropagation();
+        var bookId = $(this).parent().data("id");
+        $.ajax({
+            url: "http://localhost:8282/books/" + bookId,
+            type: "DELETE"
+        }).done(function() {
+            refreshBooks(rootDiv);
+        })
+    })
 });
 
 function handleForm() {
@@ -50,6 +62,7 @@ function handleForm() {
             refreshBooks($('#root'));
         })
     })
+
 }  
 
 function refreshBooks(rootElement){
@@ -63,7 +76,8 @@ function refreshBooks(rootElement){
         for(var i=0;i<data.length; i++){
             var bookElement = $("<div class='book' data-id='"
             +data[i].id+"'>"
-            +data[i].title+"<div style='display:none;background-color:grey;'></div>"
+            +data[i].title+"<button class='delete-button'>Usuń</button>"
+            +"<div style='display:none;background-color:grey;'></div>"
             +"</div>");
             rootElement.append(bookElement);
 
