@@ -13,7 +13,7 @@ $(document).ready(function(){
         var bookId = $(this).data("id");
 
         $.ajax({
-            url: "http://localhost:8282/books/" + bookId,
+            url: "http://localhost:8080/BookRESTApi/books/" + bookId,
             type: "GET"
         }).done(function(bookDetails){
             detailDiv.show();
@@ -28,7 +28,7 @@ $(document).ready(function(){
         event.stopPropagation();
         var bookId = $(this).parent().data("id");
         $.ajax({
-            url: "http://localhost:8282/books/" + bookId,
+            url: "http://localhost:8080/BookRESTApi/books/" + bookId,
             type: "DELETE"
         }).done(function() {
             refreshBooks(rootDiv);
@@ -51,7 +51,7 @@ function handleForm() {
         newBook.type = $('#type').val();
 
         $.ajax({
-            url:"http://localhost:8282/books",
+            url:"http://localhost:8080/BookRESTApi/books/",
             type: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -68,7 +68,7 @@ function handleForm() {
 function refreshBooks(rootElement){
     rootElement.html("");
     $.ajax({
-        url: "http://localhost:8282/books",
+        url: "http://localhost:8080/BookRESTApi/books/",
         type: "GET"
     }).done(function(data) {
         console.log(data);
